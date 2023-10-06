@@ -1,0 +1,13 @@
+stages:
+  - Test
+jobs:
+- name: Execute Unit Test and Upload to Codecov
+  stage: Test
+  image: node:18-alpine
+  script:
+  - npm install
+  - npm run test
+  - apk add curl git
+  - curl -Os https://uploader.codecov.io/latest/linux/codecov
+  - chmod +x codecov
+  - ./codecov -t $CODECOV_TOKEN -u https://codecov.sun-asterisk.vn
