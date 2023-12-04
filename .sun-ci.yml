@@ -7,6 +7,8 @@ jobs:
   script:
   - npm install
   - npm run test
+  # Upload code coverage report to Sun* Codecov
+  # Container must be installed git, that used to detect Git commit SHA for Codecov
   - apk add curl git
   - curl -Os https://uploader.codecov.io/latest/linux/codecov
   - chmod +x codecov
