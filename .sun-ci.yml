@@ -12,4 +12,5 @@ jobs:
   - apk add curl git
   - curl -Os https://uploader.codecov.io/latest/linux/codecov
   - chmod +x codecov
-  - ./codecov -t $CODECOV_TOKEN -u https://codecov.sun-asterisk.vn
+  # Option -B use to set Git brach. See https://docs.codecov.com/docs/codecov-uploader#uploader-command-line-arguments
+  - ./codecov -t $CODECOV_TOKEN -B $CI_BRANCH -u https://codecov.sun-asterisk.vn
