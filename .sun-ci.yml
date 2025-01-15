@@ -1,16 +1,14 @@
 stages:
   - Test
 jobs:
-- name: Execute Unit Test and Upload to Codecov
+- name: Execute Unit Test and Upload to Sun* Athena
   stage: Test
   image: node:18-alpine
   script:
   - npm install
   - npm run test
-  # Upload code coverage report to Sun* Codecov
-  # Container must be installed git, that used to detect Git commit SHA for Codecov
-  - apk add curl git
+  # Upload code coverage report to Sun* Athena
   - curl -Os https://uploader.codecov.io/latest/linux/codecov
   - chmod +x codecov
   # Option -B use to set Git brach. See https://docs.codecov.com/docs/codecov-uploader#uploader-command-line-arguments
-  - ./codecov -t $CODECOV_TOKEN -B $CI_BRANCH -u https://codecov.sun-asterisk.vn
+  - ./codecov -t $CODECOV_TOKEN -B $CI_BRANCH -u https://athena.sun-asterisk.vn

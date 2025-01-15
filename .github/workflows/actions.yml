@@ -1,0 +1,28 @@
+name: CI/CD
+
+on:
+  workflow_dispatch:
+
+jobs:
+  node:
+    runs-on: ubuntu-latest
+    container: node:18-alpine
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: NPM install
+        run: |
+          npm install
+
+      - name: NPM test
+        run: |
+          npm run test
+
+      - name: Upload to Sun* Athena
+        run: |
+          apk add curl git
+          # Download As a Binary from Codecov. See https://docs.codecov.com/docs/codecov-uploader#download-as-a-binary
+          curl -Os https://uploader.codecov.io/latest/linux/codecov
+          chmod +x codecov
+          # Option -B use to set Git brach. See https://docs.codecov.com/docs/codecov-uploader#uploader-command-line-arguments
+          ./codecov -t ${{ secrets.CODECOV_TOKEN }} -B ${{ github.ref }} -u https://athena.sun-asterisk.vn
